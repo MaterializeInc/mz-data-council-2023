@@ -1,0 +1,8 @@
+tasks:
+  - name: install psql
+    before: sudo apt-get update
+    init: sudo apt-get -y install postgresql-client
+  - name: install dbt-materialize
+    before: python3 -m venv dbt-venv
+    init: source dbt-venv/bin/activate
+    command: pip install dbt-materialize && dbt --version
