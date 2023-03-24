@@ -9,7 +9,7 @@
   {%- endcall -%}
 
   {%- call statement('kafka_password', fetch_result=False, auto_begin=False) -%}
-    CREATE SECRET IF NOT EXISTS kafka_pass AS '{{ kafka_pass }}';
+    CREATE SECRET IF NOT EXISTS kafka_password AS '{{ kafka_pass }}';
   {%- endcall -%}
 
   {%- call statement('csr_user', fetch_result=False, auto_begin=False) -%}
