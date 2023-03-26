@@ -1,0 +1,26 @@
+services:
+  materialized:
+    image: materialize/materialized:v0.48.0
+    container_name: materialized
+    ports:
+      - 6875:6875
+      - 6878:6878
+    healthcheck: {test: curl -f localhost:6878/api/readyz, interval: 1s, start_period: 35s}
+  dbt:
+    image: materialize/dbt-materialize:v0.48.0
+    container_name: dbt
+    init: true
+    ports:
+      - 8000:8080
+    volumes:
+      - ./dbt/profiles.yml:/root/.dbt/profiles.yml
+      - ./dbt/:/usr/app/dbt
+    stdin_open: true
+    tty: true
+    working_dir: /usr/app/dbt
+    depends_on: [materialized]
+  metabase:
+    image: metabase/metabase:v0.41.5
+    depends_on: [materialized]
+    ports:
+      - 3030:3000

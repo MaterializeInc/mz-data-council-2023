@@ -2,12 +2,11 @@ mz_get_started:
   outputs:
     dev:
       type: materialize
-      host: "{{ env_var('MZ_HOST') }}"
+      host: materialized
       port: 6875
-      user: "{{ env_var('MZ_USER') }}"
-      password: "{{ env_var('MZ_PASSWORD') }}"
+      user: materialize
+      password: password
       database: materialize
       cluster: default
       schema: qck
-      sslmode: require
   target: dev

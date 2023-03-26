@@ -1,11 +1,15 @@
-image:
-  file: .gitpod.Dockerfile
-
 tasks:
-  - name: Set env vars
+  - name: spin up Docker
+    init: |
+      docker-compose up -d
     command: |
-      echo "S0FGS0FfQlJPS0VSPXBrYy1uMDBray51cy1lYXN0LTEuYXdzLmNvbmZsdWVudC5jbG91ZDo5MDkyCktBRktBX1VTRVI9Q0w2TTVWU1lJMzJUVklMQQpLQUZLQV9QQVNTPXN3SzVncG85SjN1SkthZWVIalRrS1huVTdxZDVHcDkwRkRKcTRDYkhLdk5uVTRrbDd1UTFqelZJR3N2aEhCMEsKQ1NSX1VSTD1odHRwczovL3BzcmMta285MnYudXMtZWFzdC0yLmF3cy5jb25mbHVlbnQuY2xvdWQ6NDQzCkNTUl9VU0VSPURJU0NVM1IzRUJFTE5PWlEKQ1NSX1BBU1M9cFF3TlZxV2RHczhQNFZVcGRZWW9IZm5wYzBCMWxxWFRtWktEK1UzTy95aCt2TXJBajRqRHdUQWJIdXpTbGtlaQ==" | base64 -d > .env && export $(cat .env | xargs)
+      docker exec -it dbt /bin/bash
+  - name: install psql
+    before: sudo apt-get update
+    init: sudo apt-get -y install postgresql-client
 
 ports:
   - port: 8080
+    onOpen: open-browser
+  - port: 3000
     onOpen: open-browser
