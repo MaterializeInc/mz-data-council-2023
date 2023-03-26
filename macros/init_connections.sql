@@ -8,7 +8,7 @@
     CREATE SECRET IF NOT EXISTS kafka_user AS '{{ kafka_user }}';
   {%- endcall -%}
 
-  {%- call statement('kafka_password', fetch_result=False, auto_begin=False) -%}
+  {%- call statement('kafka_pass', fetch_result=False, auto_begin=False) -%}
     CREATE SECRET IF NOT EXISTS kafka_pass AS '{{ kafka_pass }}';
   {%- endcall -%}
 
@@ -16,8 +16,8 @@
     CREATE SECRET IF NOT EXISTS csr_user AS '{{ csr_user }}';
   {%- endcall -%}
 
-  {%- call statement('csr_password', fetch_result=False, auto_begin=False) -%}
-    CREATE SECRET IF NOT EXISTS csr_password AS '{{ csr_password }}';
+  {%- call statement('csr_pass', fetch_result=False, auto_begin=False) -%}
+    CREATE SECRET IF NOT EXISTS csr_pass AS '{{ csr_pass }}';
   {%- endcall -%}
 
   {%- call statement('dc_kafka_connection', fetch_result=False, auto_begin=False) -%}
@@ -25,7 +25,7 @@
       BROKER '{{ kafka_broker }}',
       SASL MECHANISMS = 'PLAIN',
       SASL USERNAME = SECRET kafka_user,
-      SASL PASSWORD = SECRET kafka_password
+      SASL PASSWORD = SECRET kafka_pass
     );
   {%- endcall -%}
 
@@ -33,7 +33,7 @@
     CREATE CONNECTION IF NOT EXISTS dc_csr_connection TO CONFLUENT SCHEMA REGISTRY (
       URL '{{ csr_url }}',
       USERNAME = SECRET csr_user,
-      PASSWORD = SECRET csr_password
+      PASSWORD = SECRET csr_pass
     );
   {%- endcall -%}
 
