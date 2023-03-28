@@ -10,59 +10,59 @@ In this hands-on workshop, you will **build a streaming application from scratch
 
 ### Setup
 
-To speed things up, we've created temporary Materialize accounts for everyone and packaged everything you need to get up and running in a Gitpod environment. Head over to [this link](https://app.hex.tech/8ef023be-82dc-4938-a59a-68b406eb8d57/app/67f97582-9360-4665-9fce-a11d092b5b6c/latest) to get started!
+> **Note:** The temporary accounts will be wiped after the workshop. If you want to continue exploring Materialize, [sign up for access](https://materialize.com/register/) or drop by our booth for a demo!
 
-> **Note:** These temporary accounts will be wiped after the workshop. If you want to continue exploring Materialize, [sign up for access](https://materialize.com/register/) or drop by our booth for a demo!
+To speed things up, we've created temporary Materialize accounts for everyone and packaged everything you need to get up and running in a Gitpod environment. Head over to [this link](https://app.hex.tech/8ef023be-82dc-4938-a59a-68b406eb8d57/app/67f97582-9360-4665-9fce-a11d092b5b6c/latest) to get started!
 
 ### What to expect
 
 We'll go over the setup and walk through its different moving parts in the first part of the workshop. Here's a rough overview of some of the commands you'll be running:
 
-1. Ensure your dbt project in Gitpod can connect to your assigned Materialize instance:
+- Ensure your dbt project in Gitpod can connect to your assigned Materialize instance:
 
-```bash
-dbt debug
-```
+  ```bash
+  dbt debug
+  ```
 
-2. Then, execute the `init_connections` macro to bootstrap the required connections in Materialize (which would, under normal conditions, be configured ahead of running your dbt projects!). You only need to execute this **once**:
+- Then, execute the `init_connections` macro to bootstrap the required connections in Materialize (which would, under normal conditions, be configured ahead of running your dbt projects!). You only need to execute this **once**:
 
-```bash
-dbt run-operation init_connections
-```
+  ```bash
+  dbt run-operation init_connections
+  ```
 
-3. Assuming you can connect and the required connections exist in your account, run dbt normally to build your models:
+- Assuming you can connect and the required connections exist in your account, run dbt normally to build your models:
 
-```bash
-dbt run
-```
+  ```bash
+  dbt run
+  ```
 
-4. As with any other dbt project, you can automatically generate and serve its documentation as a static website. Run:
+- As with any other dbt project, you can automatically generate and serve its documentation as a static website. Run:
 
-```bash
-dbt docs generate && dbt docs serve --no-browser
-```
+  ```bash
+  dbt docs generate && dbt docs serve --no-browser
+  ```
 
-While the dbt docs are running, open a separate Gitpod terminal and run:
+  While the dbt docs are running, open a separate Gitpod terminal and run:
 
-```bash
-gp ports list
-```
+  ```bash
+  gp ports list
+  ```
 
-This will output a unique URL that you can use to access the documentation website.
+  This will output a unique URL that you can use to access the documentation website.
 
-5. Finally, you can start exploring the data model in Materialize! To connect to your instance using `psql`, run:
+- Finally, you can start exploring the data model in Materialize! To connect to your instance using `psql`, run:
 
-```bash
-export PGPASSWORD=$MZ_PASSWORD
+  ```bash
+  export PGPASSWORD=$MZ_PASSWORD
 
-psql -h $MZ_HOST -p 6875 -U $MZ_USER -d materialize --set=sslmode=require
-```
+  psql -h $MZ_HOST -p 6875 -U $MZ_USER -d materialize --set=sslmode=require
+  ```
 
-You only need to set your `PGPASSWORD` once, and this will be the same as `MZ_PASSWORD` which is injected when you enter the Gitpod environment. From here, you'll be able to run SQL statements and query the models! As an example, try running:
+  You only need to set your `PGPASSWORD` once, and this will be the same as `MZ_PASSWORD` which is injected when you enter the Gitpod environment. From here, you'll be able to run SQL statements and query the models! As an example, try running:
 
-```sql
-SELECT SUM(revenue) FROM materialize.qck.item_summary;
-```
+  ```sql
+  SELECT SUM(revenue) FROM materialize.qck.item_summary;
+  ```
 
 ## Getting support
 
